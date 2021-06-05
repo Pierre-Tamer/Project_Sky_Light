@@ -212,11 +212,11 @@ void lightsOut(){
   }
 
 void motionCheck(){
-  if(pirArmed){
-  motion = digitalRead(lpin); 
-  } else {
+  if(pirArmed)
+    motion = digitalRead(lpin); 
+  else 
     motion = false;
-    }}
+   }
     
 void setup(){
   Serial.begin(9600);
