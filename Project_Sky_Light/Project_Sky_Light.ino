@@ -36,10 +36,10 @@ float limit(float x){
   return 0;  
   }
   
-void light(){
-  if(on){
-    if(ambientLight){
-      switch(lightingMode){
+void light(){ 
+  if(on){         //checks light on or off and
+    if(ambientLight){ // checks if lights of the room are on
+      switch(lightingMode){ //sets the lighting mode
          case 1:
          staticLight();
           break;
@@ -53,8 +53,8 @@ void light(){
          breathing();
             break;
            }}
-    else if(!ambientLight){
-      if(motion){
+    else if(!ambientLight){ //if lights of the room are off
+      if(motion){ // if there is a motion in the room it turns on the light
       switch(lightingMode){
          case 1:
          staticLight();
@@ -71,7 +71,7 @@ void light(){
            }
       }
     }}
-  else if(!on){
+  else if(!on){ //close all pins if lamps is off
     for(int i = 0;i<3;i++){
     digitalWrite(pin[i],LOW);
     }
@@ -102,7 +102,7 @@ void breathing(){
   }}} 
   }
 
-void wave(){
+void wave(){ // sets the wave according the curve
   for(int i=0;i<3;i++){
   if (rgbWave[3+i]){
    if (rgbWave[i] < 1023){
@@ -121,12 +121,12 @@ void wave(){
   }}}
   }
 
-void motionNotification(){
+void motionNotification(){ //notify if motion is detected
   if(motion){
   Blynk.notify("Motion detected in the vicinity!"); }
   }
 
-void staticLight(){
+void staticLight(){ //sets the light to a static colour
      for(int i = 0;i<3;i++)
      analogWrite(pin[i],rgbSelection[i]); 
 //    analogWrite(pin[0],rgbSelection[0]);
@@ -134,7 +134,7 @@ void staticLight(){
 //    analogWrite(pin[2],rgbSelection[2]); 
 }
 
-void tempLight(){             
+void tempLight(){// it gets more red if its more heated and more blue if its colder        
   int r,g,b;
   r = limit(((naturalNum(temp[1]-15))/10)*1023);
   g = min(limit(((naturalNum(temp[1]-5))/10)*1023), limit(((naturalNum(45-temp[1]))/10)*1023));
@@ -152,7 +152,7 @@ void tempLight(){
 //    analogWrite(pin[0],rgb[i]);
 //  }}
 
-BLYNK_CONNECTED() {
+BLYNK_CONNECTED() { 
     Blynk.syncAll();
 }
 
@@ -204,12 +204,12 @@ void temprature(){
   Serial.println(temp[1]);
   }
 
-void lightsOut(){
+void lightsOut(){//measures the light of the room
    ambientLight = digitalRead(lpin);
   }
 
 void motionCheck(){
-  if(pirArmed)
+  if(pirArmed) 
     motion = digitalRead(lpin); 
   else 
     motion = false;
