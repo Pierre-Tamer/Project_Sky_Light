@@ -27,13 +27,13 @@ SimpleTimer timer;
 float naturalNum(float x){
   if(x >= 0)
     return x;
-    return 0;  
+  return 0;  
   }
 
 float limit(float x){ 
   if(x <= 1023)
     return x;
-    return 0;  
+  return 0;  
   }
   
 void light(){
@@ -127,13 +127,12 @@ void motionNotification(){
   }
 
 void staticLight(){
-   analogWrite(pin[0],rgbSelection[0]);
-   analogWrite(pin[1],rgbSelection[1]);
-   analogWrite(pin[2],rgbSelection[2]); 
-//    for(int i = 0;i<3;i++){
-//      analogWrite(pin[i],rgbSelection[i]); 
-//      }
-  }
+     for(int i = 0;i<3;i++)
+     analogWrite(pin[i],rgbSelection[i]); 
+//    analogWrite(pin[0],rgbSelection[0]);
+//    analogWrite(pin[1],rgbSelection[1]);
+//    analogWrite(pin[2],rgbSelection[2]); 
+}
 
 void tempLight(){             
   int r,g,b;
@@ -183,13 +182,11 @@ BLYNK_WRITE(V4) {
 }
 
 BLYNK_WRITE(V1){
-    rgbSelection[0] = param[0].asInt();
-    rgbSelection[1] = param[1].asInt();
-    rgbSelection[2] = param[2].asInt();
-
-//    for(int i = 0;i<3;i++){
-//      rgbSelection[i] = param[i].asInt();
-//      }
+    for(int i = 0;i<3;i++)
+     rgbSelection[i] = param[i].asInt();
+//     rgbSelection[0] = param[0].asInt();
+//     rgbSelection[1] = param[1].asInt();
+//     rgbSelection[2] = param[2].asInt();
 }
 
 BLYNK_WRITE(V2){   
